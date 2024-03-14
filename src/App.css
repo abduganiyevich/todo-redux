@@ -1,0 +1,51 @@
+.container{
+  width: 100%;
+  max-width: 1000px;
+  margin: 100px auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.container h1{
+  color: chartreuse;
+}
+
+.form-wrapper input{
+  padding: 15px 20px;
+  border: 1px solid lightgray;
+  width: 600px;
+  margin-right: 10px;
+  outline-color: antiquewhite;
+}
+
+.form-wrapper button{
+  cursor: pointer;
+  padding: 15px;
+  border: none;
+  border-radius: 8px;
+  color: white;
+  background-color: blue;
+}
+
+.container .todo-item{
+  width: 80%;
+  display: flex;
+  gap: 15px;
+  justify-content: space-between;
+  align-items: center;
+  background-color: antiquewhite;
+  padding: 20px;
+}
+
+.container .todo-item button{
+  cursor: pointer;
+  border: none;
+  background-color: rgba(255, 0, 0, 0.728);
+  color: white;
+  padding: 15px 20px;
+  font-weight: 700;
+  border-radius: 5px;
+}
