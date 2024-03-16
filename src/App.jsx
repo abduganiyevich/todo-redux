@@ -1,55 +1,67 @@
-import { useRef, useState } from 'react'
-import './App.css'
-import { useDispatch, useSelector } from 'react-redux'
+import React, { useRef } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import './App.css';
 
 function App() {
-  const todos=useSelector(state=>state.todos.todos)
-  const nameRef=useRef();
-  const dispatch=useDispatch();
-function  handleAdd(e) {
-  e.preventDefault();
-  if (nameRef.current.value) {
-    let t={
-      id:Math.trunc(Math.random()*1000),
-      name:nameRef.current.value
-    }
-    dispatch({type:"TODO-ADD",payload:t })
-  }
+  const users = useSelector((state) => state.users.users);
+  const nameRef = useRef();
+  const surnameRef = useRef();
+  const emailRef = useRef();
+  const jobRef = useRef();
+  const dispatch = useDispatch();
 
-  nameRef.current.value='';
-}
+  const handleAdd = (e) => {
+    e.preventDefault();
+   
+   
+      const newUser = {
+        id: Math.trunc(Math.random() * 1000),
+       name: nameRef.current.value,
+        surname: surnameRef.current.value,
+        email: emailRef.current.value,
+        job: jobRef.current.value,
+      };
+      dispatch({ type: 'USER_ADD', payload: newUser });
+      nameRef.current.value = '';
+      surnameRef.current.value = '';
+      emailRef.current.value = '';
+      jobRef.current.value = '';
 
-function handleDelete(id) {
-    dispatch({type:'TODO-REMOVE',payload:id})
-}
+  };
+
+  const handleDelete = (id) => {
+    dispatch({ type: 'USER_REMOVE', payload: id });
+  };
+
   return (
     <div className='container'>
-      <h1>TODO</h1>
-    <form className='form-wrapper'>
-    <input ref={nameRef} type="text" placeholder='typing...' />
-     <button onClick={handleAdd}>add</button>
-    </form>
+      <h1>User Management</h1>
+      <form className='form-wrapper' onSubmit={handleAdd}>
+        <input ref={nameRef} type='text' placeholder='Name' required />
+        <input ref={surnameRef} type='text' placeholder='Surname' required />
+        <input ref={emailRef} type='email' placeholder='Email' required />
+        <input ref={jobRef} type='text' placeholder='Job' required />
+        <button type='submit'>Add User</button>
+      </form>
 
-  {
-   todos.length===0&&<div>
-   <h4>you don't have any todos</h4>
-   </div>
-  }
+      {users.length === 0 && (
+        <div>
+          <h4>Hech qanday ma'luot yo'q</h4>
+        </div>
+      )}
 
-
-  {
-     todos.length>0 && todos.map((todo,index)=>{
-      return(
-        <div className='todo-item' key={index}>
-        <p>{todo.name}</p>
-        <button onClick={()=>{handleDelete(todo.id)}}>delete</button>
-      </div>
-  
-      )
-  }) 
-  }
+      {users.length > 0 &&
+        users.map((user) => (
+          <div className='card-item' key={user.id}>
+            <p>Name: {user.name}</p>
+            <p>Surname: {user.surname}</p>
+            <p>Email: {user.email}</p>
+            <p>Job: {user.job}</p>
+            <button onClick={() => handleDelete(user.id)}>Delete</button>
+          </div>
+        ))}
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
